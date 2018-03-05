@@ -1,6 +1,6 @@
 {
   "name": "storybook-markup",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Show markup from your react stories in the storybook panel.",
   "keywords": ["BuckleScript", "storybook", "addon"],
   "author": "Ulrik Strid (ulrik.strid@outlook.com)",
@@ -8,13 +8,14 @@
     "type": "git",
     "url": "https://github.com/ulrikstrid/storybook-markup.git"
   },
-  "main": "src/ShowMarkup.js",
+  "main": "lib/es6/src/ShowMarkup.js",
   "license": "MIT",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "cp lib/es6/src/register.js ./register.js"
   },
   "dependencies": {
     "html-beautify": "^1.0.4",
