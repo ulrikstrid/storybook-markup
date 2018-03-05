@@ -15,6 +15,10 @@ import "storybook-markup/src/register";
 In your stories file
 
 ```js
+import ShowMarkup from "storybook-markup/ShowMarkup";
+
+...
+
 <ShowMarkup>
   <Button onClick={action("clicked")}>Hello Button</Button>
 </ShowMarkup>
