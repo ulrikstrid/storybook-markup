@@ -1,6 +1,6 @@
 {
   "name": "storybook-markup",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Show markup from your react stories in the storybook panel.",
   "keywords": ["BuckleScript", "storybook", "addon"],
   "author": "Ulrik Strid (ulrik.strid@outlook.com)",
