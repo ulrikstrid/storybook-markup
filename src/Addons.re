@@ -11,7 +11,7 @@ type channelListener = string => unit;
 type panelConfig = {
   .
   "title": string,
-  "render": unit => ReasonReact.reactElement
+  "render": unit => ReasonReact.reactElement,
 };
 
 [@bs.module "@storybook/addons"] external addons : t = "default";

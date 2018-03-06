@@ -7,11 +7,11 @@ let make = children => {
     Addons.emitChannel(
       channel,
       "ulrikstrid/storybook-markup/show_markup",
-      ReactDOMServerRe.renderToStaticMarkup(children)
+      ReactDOMServerRe.renderToStaticMarkup(children),
     );
     ReasonReact.NoUpdate;
   },
-  render: _self => children
+  render: _self => children,
 };
 
 let default =
