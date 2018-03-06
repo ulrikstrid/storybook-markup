@@ -1,4 +1,6 @@
 #!/bin/bash
+otp="$1"
+
 echo "building project..."
 yarn run build
 
@@ -19,6 +21,6 @@ cp bsconfig.json temp/bsconfig.json
 echo "staring publish..."
 
 cd temp
-npm publish
+npm publish --otp="$otp"
 
 echo "done."

@@ -1,8 +1,12 @@
 {
   "name": "storybook-markup",
-  "version": "1.0.5",
+  "version": "1.1.2",
   "description": "Show markup from your react stories in the storybook panel.",
-  "keywords": ["BuckleScript", "storybook", "addon"],
+  "keywords": [
+    "BuckleScript",
+    "storybook",
+    "addon"
+  ],
   "author": "Ulrik Strid (ulrik.strid@outlook.com)",
   "repository": {
     "type": "git",
@@ -17,9 +21,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "html-beautify": "^1.0.4",
+    "bs-platform": "^2.2.2",
     "reason-react": ">=0.3.0",
-    "bs-platform": "^2.2.0"
+    "rehype": "^5.0.1",
+    "rehype-format": "^2.2.0",
+    "rehype-highlight": "^2.1.0"
   },
   "devDependencies": {
     "@storybook/react": "^3.3.14",

@@ -1,3 +1,5 @@
+let textElement = ReasonReact.stringToElement;
+
 module Markup = {
   let markupPanelStyle =
     ReactDOMRe.Style.make(
@@ -7,9 +9,8 @@ module Markup = {
       ~color="#444",
       ~width="100%",
       ~overflow="auto",
-      ()
+      (),
     );
-  let text = ReasonReact.stringToElement;
   type state = {text: string};
   type action =
     | AddMarkup(string);
@@ -18,34 +19,44 @@ module Markup = {
     ...component,
     initialState: () => {text: ""},
     reducer: (action, _state) =>
-      switch action {
+      switch (action) {
       | AddMarkup(text) => ReasonReact.Update({text: text})
       },
     subscriptions: self => {
-      let handler = text => self.send(AddMarkup(text));
+      let handler = text => {
+        let r = Rehype.rehype();
+        let r = Rehype.data(r, "settings", {"fragment": Js.true_});
+        let r = Rehype.use(r, Rehype.format);
+        Rehype.process(
+          r,
+          text,
+          (_err, file) => {
+            Js.log(file);
+            self.send(AddMarkup(file##contents));
+          },
+        );
+      };
       [
         ReasonReact.Sub(
           () => {
             Addons.onChannel(
               channel,
               "ulrikstrid/storybook-markup/show_markup",
-              handler
+              handler,
             );
             "ulrikstrid/storybook-markup/show_markup";
           },
           token => {
             Addons.onStory(api, () => self.send(AddMarkup("")));
             Addons.removeChannelListener(channel, token, handler);
-          }
-        )
+          },
+        ),
       ];
     },
     render: self =>
       <div style=markupPanelStyle>
-        <pre>
-          <code> (self.state.text |> HtmlBeautify.htmlBeautify |> text) </code>
-        </pre>
-      </div>
+        <pre> <code> (self.state.text |> textElement) </code> </pre>
+      </div>,
   };
 };
 
@@ -56,7 +67,7 @@ Addons.register(Addons.addons, "ulrikstrid/storybook-markup", api =>
     {
       "title": "Markup",
       "render": () =>
-        <Markup channel=(Addons.getChannel(Addons.addons, ())) api />
-    }
+        <Markup channel=(Addons.getChannel(Addons.addons, ())) api />,
+    },
   )
 );
