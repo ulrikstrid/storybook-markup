@@ -23,19 +23,13 @@ module Markup = {
       | AddMarkup(text) => ReasonReact.Update({text: text})
       },
     subscriptions: self => {
-      let handler = text => {
-        let r = Rehype.rehype();
-        let r = Rehype.data(r, "settings", {"fragment": Js.true_});
-        let r = Rehype.use(r, Rehype.format);
-        Rehype.process(
-          r,
-          text,
-          (_err, file) => {
-            Js.log(file);
-            self.send(AddMarkup(file##contents));
-          },
-        );
-      };
+      let handler = text =>
+        Rehype.rehype()
+        |> Rehype.data(_, "settings", {"fragment": Js.true_})
+        |> Rehype.use(_, Rehype.format)
+        |> Rehype.process(_, text, (_err, file) =>
+             self.send(AddMarkup(file##contents))
+           );
       [
         ReasonReact.Sub(
           () => {
